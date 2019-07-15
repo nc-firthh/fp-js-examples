@@ -27,13 +27,19 @@ const pure = (user) => {
 };
 
 // Imperative example
-const imperative = (array) => {
+const imperative = (array, logFirst = false) => {
   var newArray = [];
   var i;
 
   for (i = 0; i < array.length; i++) {
     var doubledValue = array[i] * 2;
-    console.log(doubledValue);
+
+    if (logFirst) {
+      console.log(array[i]);
+    } else {
+      console.log(doubledValue);
+    }
+
     newArray.push(doubledValue);
   }
 
@@ -57,5 +63,5 @@ const declarative = (array) => {
 
 impure({ age: 20 });
 pure({ age: 20 });
-imperative([1, 2, 3]);
+imperative([1, 2, 3], true);
 declarative([1, 2, 3]);

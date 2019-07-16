@@ -47,7 +47,7 @@ const imperative = (array, logFirst = false) => {
 };
 
 // Declarative example
-const declarative = (array) => {
+const declarative = (array, logFirst = false) => {
   const double = multiply(2);
   const doubleArray = map(double);
   const logEach = forEach(console.log);
@@ -57,11 +57,16 @@ const declarative = (array) => {
     logEach,
   );
 
-  return doubleAndLog(array);
+  const logAndDouble = pipe(
+    logEach,
+    doubleArray,
+  );
+
+  return logFirst ? logAndDouble(array) : doubleAndLog(array);
 };
 
 
 impure({ age: 20 });
 pure({ age: 20 });
 imperative([1, 2, 3], true);
-declarative([1, 2, 3]);
+declarative([1, 2, 3], true);

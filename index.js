@@ -1,7 +1,9 @@
-const { forEach, map, multiply, pipe } = require('lodash/fp');
+const { forEach, map, multiply } = require('lodash/fp');
 
 // Impure example
-const impure = (user) => {
+(() => {
+  let user = { age: 20 };
+
   function getOlder() {
     user.age += 1;
     return user;
@@ -10,11 +12,12 @@ const impure = (user) => {
   getOlder();
 
   console.log(user.age);
-  return user;
-};
+})();
 
 // Pure example
-const pure = (user) => {
+(() => {
+  const user = { age: 20 };
+
   function getOlder(user) {
     const age = user.age + 1;
     return Object.assign({}, user, { age });
@@ -23,11 +26,11 @@ const pure = (user) => {
   const olderUser = getOlder(user);
 
   console.log(olderUser.age);
-  return olderUser;
-};
+})();
 
 // Imperative example
-const imperative = (array) => {
+(() => {
+  var array = [1, 2, 3];
   var newArray = [];
   var i;
 
@@ -37,25 +40,20 @@ const imperative = (array) => {
     newArray.push(doubledValue);
   }
 
-  return newArray;
-};
+  console.log(newArray); // [ 2, 4 ,6 ]
+})();
 
 // Declarative example
-const declarative = (array) => {
+(() => {
+  const array = [1, 2, 3];
   const double = multiply(2);
   const doubleArray = map(double);
   const logEach = forEach(console.log);
 
-  const doubleAndLog = pipe(
-    doubleArray,
-    logEach,
-  );
+  const newArray =
+    array
+    |> doubleArray
+    |> logEach;
 
-  return doubleAndLog(array);
-};
-
-
-impure({ age: 20 });
-pure({ age: 20 });
-imperative([1, 2, 3]);
-declarative([1, 2, 3]);
+  console.log(newArray); // [ 2, 4 ,6 ]
+})();

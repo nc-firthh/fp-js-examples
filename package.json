@@ -4,11 +4,14 @@
   "description": "A few examples for my FP javascript presentation",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start": "babel index.js --out-file output.js && node output.js"
   },
   "author": "firthh",
   "license": "ISC",
   "devDependencies": {
     "lodash": "^4.17.14"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-pipeline-operator": "^7.5.0"
   }
 }
